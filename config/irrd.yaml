@@ -1,0 +1,84 @@
+---
+irrd:
+  database_url: 'postgresql://irrd:ynrDukEkZWmSeaTWzBUrMzwsdcgFSCWtfRTc@postgres/irrd'
+  redis_url: 'redis://redis:6379/'
+  piddir: /var/run/
+  user: nobody
+  group: nogroup
+
+  email:
+    footer: 'email footer'
+    from: example@example.com
+    smtp: localhost
+    notification_header: |
+      This is to notify you of changes in the {sources_str} database
+      or object authorisation failures.
+ 
+      You may receive this message because you are listed in
+      the notify attribute on the changed object(s), or because
+      you are listed in the mnt-nfy or upd-to attribute on a maintainer
+      of the object(s).
+
+  access_lists:
+    http_database_status:
+      - 0.0.0.0/0
+    
+    generic_nrtm_access:
+      - 172.0.0.1/32
+  
+  server:
+    http:
+      status_access_list: http_database_status
+      interface: '::0'
+      port: 8001
+    whois:
+      interface: '::0'
+      max_connections: 50
+      port: 8043
+  
+  auth:
+    gnupg_keyring: /etc/gnupg-keyring/
+    override_password: {hash}
+  
+  scopefilter:
+    prefixes:
+      - 10.0.0.0/8
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+    asns:
+      - 23456
+      - 64496-64511
+  
+  sources:
+    ARIN:
+      authoritative: false
+      import_serial_source: ftp://ftp.arin.net/pub/rr/ARIN.CURRENTSERIAL
+      import_source: ftp://ftp.arin.net/pub/rr/arin.db.gz
+      import_timer: 3600
+    RIPE:
+      authoritative: false
+      import_serial_source: ftp://ftp.ripe.net/ripe/dbase/RIPE.CURRENTSERIAL
+      import_source: ftp://ftp.ripe.net/ripe/dbase/ripe.db.gz
+      import_timer: 3600
+    AFRINIC:
+      authoritative: false
+      import_timer: 3600
+      import_serial_source: ftp://ftp.afrinic.net/dbase/AFRINIC.CURRENTSERIAL
+      import_source: ftp://ftp.afrinic.net/dbase/afrinic.db.gz
+    LACNIC:
+      authoritative: false
+      import_timer: 3600
+      import_serial_source: ftp://ftp.lacnic.net/lacnic/irr/LACNIC.CURRENTSERIAL
+      import_source: ftp://ftp.lacnic.net/lacnic/irr/lacnic.db.gz
+    LEVEL3:
+      authoritative: false
+      import_timer: 3600
+      import_serial_source: ftp://rr.Level3.net/LEVEL3.CURRENTSERIAL
+      import_source: ftp://rr.Level3.net/level3.db.gz
+  
+  sources_default:
+    - ARIN
+    - RIPE
+    - AFRINIC
+    - LACNIC
+    - LEVEL3
