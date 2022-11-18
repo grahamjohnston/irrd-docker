@@ -1,0 +1,31 @@
+---
+version: "3.9"
+
+services:
+  irrd:
+    build: ./
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - 8001:8001
+      - 8043:8043
+    volumes:
+      - ./config/irrd.yaml:/etc/irrd.yaml
+    command:
+      - /usr/local/bin/irrd.sh
+  postgres:
+    image: postgres:14-alpine
+    env_file: env/postgres.env
+    volumes:
+      - irrd-data:/var/lib/postgresql/data
+  redis:
+    image: redis:latest
+    volumes:
+      - irrd-redis:/data
+    command:
+      - redis-server
+
+volumes:
+  irrd-data:
+  irrd-redis:
