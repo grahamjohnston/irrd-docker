@@ -52,27 +52,27 @@ irrd:
   sources:
     ARIN:
       authoritative: false
+      import_timer: 86400
       import_serial_source: ftp://ftp.arin.net/pub/rr/ARIN.CURRENTSERIAL
       import_source: ftp://ftp.arin.net/pub/rr/arin.db.gz
-      import_timer: 3600
     RIPE:
       authoritative: false
+      import_timer: 86400
       import_serial_source: ftp://ftp.ripe.net/ripe/dbase/RIPE.CURRENTSERIAL
       import_source: ftp://ftp.ripe.net/ripe/dbase/ripe.db.gz
-      import_timer: 3600
     AFRINIC:
       authoritative: false
-      import_timer: 3600
+      import_timer: 86400
       import_serial_source: ftp://ftp.afrinic.net/dbase/AFRINIC.CURRENTSERIAL
       import_source: ftp://ftp.afrinic.net/dbase/afrinic.db.gz
     LACNIC:
       authoritative: false
-      import_timer: 3600
+      import_timer: 86400
       import_serial_source: ftp://ftp.lacnic.net/lacnic/irr/LACNIC.CURRENTSERIAL
       import_source: ftp://ftp.lacnic.net/lacnic/irr/lacnic.db.gz
     LEVEL3:
       authoritative: false
-      import_timer: 3600
+      import_timer: 86400
       import_serial_source: ftp://rr.Level3.net/LEVEL3.CURRENTSERIAL
       import_source: ftp://rr.Level3.net/level3.db.gz
   
